@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retailer Dashboard - AgriXpress</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .dashboard-container {
+            position: relative;
+            z-index: 1;
+            color: black;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5em;
+            color: black;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-card h2 {
+            color: #75c043;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .order-tracking {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .tracking-status {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .status-point {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ddd;
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-point.active {
+            background: #75c043;
+        }
+
+        .status-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ddd;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .status-text {
+            position: absolute;
+            top: 25px;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .alert-card {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .alert-card.urgent {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .trend-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .trend-value {
+            font-size: 1.8em;
+            color: #75c043;
+            font-weight: bold;
+        }
+
+        .trend-chart {
+            height: 200px;
+            margin-top: 15px;
+        }
+
+        .btn-primary {
+            background: #75c043;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #68ae39;
+            transform: translateY(-2px);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="image.png" alt="Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Main</a></li>
+                <li><a href="#" class="active">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <img src="agriculture.jpg" alt="Background Image" class="bg-image">
+
+    <div class="dashboard-container">
+        <div class="welcome-section">
+            <h1>Retailer Dashboard</h1>
+            <p>Manage your purchases, track orders, and monitor market trends</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Purchase Orders Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-shopping-cart"></i> Purchase Orders</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <h4>Premium Rice Pack</h4>
+                        <p><strong>Wholesaler:</strong> ABC Distributors</p>
+                        <p><strong>Available:</strong> 200 packs</p>
+                        <p><strong>Price:</strong> ₹55/kg</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <input type="number" class="form-control w-50" placeholder="Qty">
+                            <button class="btn btn-primary">Order</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <h4>Organic Wheat</h4>
+                        <p><strong>Wholesaler:</strong> Green Foods Ltd</p>
+                        <p><strong>Available:</strong> 150 packs</p>
+                        <p><strong>Price:</strong> ₹40/kg</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <input type="number" class="form-control w-50" placeholder="Qty">
+                            <button class="btn btn-primary">Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Tracking Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-truck"></i> Order Tracking</h2>
+                <div class="order-tracking">
+                    <h4>Order #12345</h4>
+                    <p><strong>Items:</strong> Premium Rice Pack (50 packs)</p>
+                    <p><strong>Supplier:</strong> ABC Distributors</p>
+                    <div class="tracking-status">
+                        <div class="status-line"></div>
+                        <div class="status-point active">
+                            <span class="status-text">Ordered</span>
+                        </div>
+                        <div class="status-point active">
+                            <span class="status-text">Processing</span>
+                        </div>
+                        <div class="status-point active">
+                            <span class="status-text">Shipped</span>
+                        </div>
+                        <div class="status-point">
+                            <span class="status-text">Delivered</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-tracking">
+                    <h4>Order #12346</h4>
+                    <p><strong>Items:</strong> Organic Wheat (30 packs)</p>
+                    <p><strong>Supplier:</strong> Green Foods Ltd</p>
+                    <div class="tracking-status">
+                        <div class="status-line"></div>
+                        <div class="status-point active">
+                            <span class="status-text">Ordered</span>
+                        </div>
+                        <div class="status-point active">
+                            <span class="status-text">Processing</span>
+                        </div>
+                        <div class="status-point">
+                            <span class="status-text">Shipped</span>
+                        </div>
+                        <div class="status-point">
+                            <span class="status-text">Delivered</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restock Alerts Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-bell"></i> Restock Alerts <span class="notification-badge">3</span></h2>
+                <div class="alert-card urgent">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Urgent Restock Required</h4>
+                    <p><strong>Product:</strong> Premium Rice Pack</p>
+                    <p><strong>Current Stock:</strong> 10 packs (Below minimum threshold)</p>
+                    <p><strong>Recommended Order:</strong> 50 packs</p>
+                    <button class="btn btn-primary mt-2">Place Order Now</button>
+                </div>
+                <div class="alert-card">
+                    <h4><i class="fas fa-info-circle"></i> Low Stock Warning</h4>
+                    <p><strong>Product:</strong> Organic Wheat</p>
+                    <p><strong>Current Stock:</strong> 25 packs (Approaching minimum)</p>
+                    <p><strong>Recommended Order:</strong> 30 packs</p>
+                    <button class="btn btn-primary mt-2">Place Order Now</button>
+                </div>
+            </div>
+
+            <!-- Market Trends Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-chart-line"></i> Market Trends</h2>
+                <div class="trend-card">
+                    <h4>Price Forecast - Rice</h4>
+                    <p>Expected price trend for next week:</p>
+                    <div class="trend-value">₹52-58/kg <i class="fas fa-arrow-up text-success"></i></div>
+                    <div class="trend-chart">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+                <div class="trend-card">
+                    <h4>Demand Analysis</h4>
+                    <p>Popular items this week:</p>
+                    <div class="trend-chart">
+                        <canvas id="demandChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Price Trend Chart
+        const priceCtx = document.getElementById('priceChart').getContext('2d');
+        new Chart(priceCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Price per kg (₹)',
+                    data: [50, 51, 53, 54, 55, 56, 55],
+                    borderColor: '#75c043',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Demand Analysis Chart
+        const demandCtx = document.getElementById('demandChart').getContext('2d');
+        new Chart(demandCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Rice', 'Wheat', 'Sugarcane', 'Pulses'],
+                datasets: [{
+                    label: 'Weekly Demand (kg)',
+                    data: [500, 300, 200, 150],
+                    backgroundColor: '#75c043'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+</body>
+</html>

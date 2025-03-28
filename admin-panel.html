@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - AgriXpress</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .dashboard-container {
+            position: relative;
+            z-index: 1;
+            color: black;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5em;
+            color: black;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-card h2 {
+            color: #75c043;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        .user-table tr {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .user-table th {
+            padding: 12px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .user-table td {
+            padding: 12px;
+            vertical-align: middle;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .chatbot-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            color: #75c043;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .report-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .backup-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .status-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .status-success {
+            background: #28a745;
+        }
+
+        .status-warning {
+            background: #ffc107;
+        }
+
+        .status-error {
+            background: #dc3545;
+        }
+
+        .btn-primary {
+            background: #75c043;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #68ae39;
+            transform: translateY(-2px);
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="image.png" alt="Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Main</a></li>
+                <li><a href="#" class="active">Admin Panel</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <img src="agriculture.jpg" alt="Background Image" class="bg-image">
+
+    <div class="dashboard-container">
+        <div class="welcome-section">
+            <h1>Admin Control Panel</h1>
+            <p>Monitor and manage system operations</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- User Management Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-users-cog"></i> User Management</h2>
+                <div class="mb-3">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                        <i class="fas fa-plus"></i> Add New User
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Raj Vishwakarma</td>
+                                <td>Farmer</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ABC Distributors</td>
+                                <td>Wholesaler</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Metro Market</td>
+                                <td>Retailer</td>
+                                <td><span class="status-badge status-inactive">Inactive</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Chatbot Performance Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-robot"></i> Chatbot Performance</h2>
+                <div class="chatbot-metrics">
+                    <div class="metric-card">
+                        <h4>Total Interactions</h4>
+                        <div class="metric-value">15,234</div>
+                        <p>Last 30 days</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Success Rate</h4>
+                        <div class="metric-value">92%</div>
+                        <p>Query Resolution</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Avg Response Time</h4>
+                        <div class="metric-value">1.2s</div>
+                        <p>Response Speed</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chatbotChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Supply Chain Reports Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-chart-bar"></i> Supply Chain Reports</h2>
+                <div class="report-card">
+                    <h4>Monthly Transaction Summary</h4>
+                    <p>March 2025</p>
+                    <div class="chart-container">
+                        <canvas id="transactionChart"></canvas>
+                    </div>
+                </div>
+                <div class="d-flex gap-3 mt-3">
+                    <button class="btn btn-primary"><i class="fas fa-download"></i> Export Report</button>
+                    <button class="btn btn-primary"><i class="fas fa-print"></i> Print Report</button>
+                </div>
+            </div>
+
+            <!-- Data Backup & Security Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-shield-alt"></i> Data Backup & Security</h2>
+                <div class="backup-status">
+                    <div class="status-icon status-success"></div>
+                    <div>
+                        <h5 class="mb-0">Last Backup: 2 hours ago</h5>
+                        <small>Size: 2.5 GB</small>
+                    </div>
+                </div>
+                <div class="backup-status">
+                    <div class="status-icon status-success"></div>
+                    <div>
+                        <h5 class="mb-0">System Security</h5>
+                        <small>All systems operational</small>
+                    </div>
+                </div>
+                <div class="backup-status">
+                    <div class="status-icon status-warning"></div>
+                    <div>
+                        <h5 class="mb-0">SSL Certificate</h5>
+                        <small>Expires in 30 days</small>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary mb-2 w-100">
+                        <i class="fas fa-database"></i> Initiate Manual Backup
+                    </button>
+                    <button class="btn btn-primary w-100">
+                        <i class="fas fa-sync"></i> Security System Check
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chatbot Performance Chart
+        const chatbotCtx = document.getElementById('chatbotChart').getContext('2d');
+        new Chart(chatbotCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Interactions',
+                    data: [3200, 4100, 3800, 4134],
+                    borderColor: '#75c043',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Transaction Summary Chart
+        const transactionCtx = document.getElementById('transactionChart').getContext('2d');
+        new Chart(transactionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Farmers', 'Wholesalers', 'Retailers'],
+                datasets: [{
+                    label: 'Transactions (₹ Lakhs)',
+                    data: [45, 62, 38],
+                    backgroundColor: '#75c043'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+</body>
+</html>

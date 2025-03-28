@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier & Wholesaler Dashboard - AgriXpress</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .dashboard-container {
+            position: relative;
+            z-index: 1;
+            color: black;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5em;
+            color: black;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-card h2 {
+            color: #75c043;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .product-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .order-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .inventory-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .inventory-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .stock-level {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .stock-high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .stock-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .stock-low {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .order-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .status-processing { background: #ffc107; }
+        .status-shipped { background: #17a2b8; }
+        .status-delivered { background: #28a745; }
+
+        .logistics-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .vehicle-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .btn-primary {
+            background: #75c043;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #68ae39;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="image.png" alt="Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Main</a></li>
+                <li><a href="#" class="active">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <img src="agriculture.jpg" alt="Background Image" class="bg-image">
+
+    <div class="dashboard-container">
+        <div class="welcome-section">
+            <h1>Supplier & Wholesaler Dashboard</h1>
+            <p>Manage your orders, inventory, and logistics</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Available Products Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-store"></i> Available Products</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <h4>Organic Rice</h4>
+                        <p><strong>Farmer:</strong> Raj Farms</p>
+                        <p><strong>Available:</strong> 500 kg</p>
+                        <p><strong>Price:</strong> ₹45/kg</p>
+                        <button class="btn btn-primary">Add to Order</button>
+                    </div>
+                    <div class="product-card">
+                        <h4>Premium Wheat</h4>
+                        <p><strong>Farmer:</strong> Krishna Agro</p>
+                        <p><strong>Available:</strong> 800 kg</p>
+                        <p><strong>Price:</strong> ₹30/kg</p>
+                        <button class="btn btn-primary">Add to Order</button>
+                    </div>
+                    <div class="product-card">
+                        <h4>Fresh Sugarcane</h4>
+                        <p><strong>Farmer:</strong> Green Fields</p>
+                        <p><strong>Available:</strong> 1000 kg</p>
+                        <p><strong>Price:</strong> ₹25/kg</p>
+                        <button class="btn btn-primary">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Place Bulk Orders Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-shopping-cart"></i> Place Bulk Order</h2>
+                <form class="order-form">
+                    <div class="form-group">
+                        <label>Selected Products</label>
+                        <div class="selected-products">
+                            <div class="product-card">
+                                <h4>Organic Rice - Raj Farms</h4>
+                                <input type="number" class="form-control" placeholder="Quantity (kg)">
+                                <p>Total: ₹22,500</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Delivery Address</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Delivery Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Place Order</button>
+                </form>
+            </div>
+
+            <!-- Inventory Management Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-boxes"></i> Inventory Management</h2>
+                <div class="inventory-list">
+                    <div class="inventory-item">
+                        <strong>Product</strong>
+                        <strong>In Stock</strong>
+                        <strong>Reorder Level</strong>
+                        <strong>Status</strong>
+                    </div>
+                    <div class="inventory-item">
+                        <span>Organic Rice</span>
+                        <span>2000 kg</span>
+                        <span>500 kg</span>
+                        <span class="stock-level stock-high">High Stock</span>
+                    </div>
+                    <div class="inventory-item">
+                        <span>Wheat</span>
+                        <span>300 kg</span>
+                        <span>400 kg</span>
+                        <span class="stock-level stock-low">Low Stock</span>
+                    </div>
+                    <div class="inventory-item">
+                        <span>Sugarcane</span>
+                        <span>800 kg</span>
+                        <span>600 kg</span>
+                        <span class="stock-level stock-medium">Medium Stock</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Fulfillment Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-tasks"></i> Order Fulfillment</h2>
+                <div class="order-list">
+                    <div class="logistics-card">
+                        <h4>Order #5678</h4>
+                        <p><strong>Customer:</strong> Metro Supermarket</p>
+                        <p><strong>Products:</strong> Organic Rice (500kg)</p>
+                        <div class="order-status">
+                            <span class="status-dot status-processing"></span>
+                            <select class="form-control">
+                                <option>Processing</option>
+                                <option>Shipped</option>
+                                <option>Delivered</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="logistics-card">
+                        <h4>Order #5679</h4>
+                        <p><strong>Customer:</strong> Food Corp</p>
+                        <p><strong>Products:</strong> Wheat (300kg)</p>
+                        <div class="order-status">
+                            <span class="status-dot status-shipped"></span>
+                            <select class="form-control">
+                                <option>Processing</option>
+                                <option selected>Shipped</option>
+                                <option>Delivered</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logistics & Transport Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-truck"></i> Logistics & Transport</h2>
+                <div class="logistics-list">
+                    <div class="logistics-card">
+                        <h4>Vehicle: MH-01-AB-1234</h4>
+                        <p><strong>Driver:</strong> Ramesh Kumar</p>
+                        <p><strong>Current Location:</strong> Mumbai</p>
+                        <p><strong>Assigned Orders:</strong> #5678, #5679</p>
+                        <span class="vehicle-status stock-high">On Route</span>
+                    </div>
+                    <div class="logistics-card">
+                        <h4>Vehicle: MH-01-CD-5678</h4>
+                        <p><strong>Driver:</strong> Suresh Patel</p>
+                        <p><strong>Current Location:</strong> Pune</p>
+                        <p><strong>Assigned Orders:</strong> #5680</p>
+                        <span class="vehicle-status stock-medium">Loading</span>
+                    </div>
+                    <button class="btn btn-primary mt-3">
+                        <i class="fas fa-plus"></i> Assign New Vehicle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

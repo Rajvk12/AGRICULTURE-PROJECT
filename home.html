@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - AgriXpress Supply Chain</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .home-container {
+            position: relative;
+            z-index: 1;
+            color: white;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin: 100px 0 60px;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5em;
+            color: rgb(0, 0, 0);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.4em;
+            color: rgb(0, 0, 0);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #75c043;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: #68ae39;
+            color: white;
+            text-decoration: none;
+        }
+
+        .features-section {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 2.5em;
+            color: #75c043;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #75c043;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .feature-card p {
+            color: white;
+            font-size: 1.1em;
+        }
+
+        .stats-section {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(117, 192, 67, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #75c043;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #75c043;
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5em;
+            }
+            .features-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="image.png" alt="Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Back To Main</a></li>
+                <li><a href="about.html">About the platform</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <img src="agriculture.jpg" alt="Background Image" class="bg-image">
+
+    <div class="home-container">
+        <div class="hero-section">
+            <h1>Agriculture Supply Chain Management</h1>
+            <p>Streamline your agricultural supply chain with our comprehensive management solution</p>
+            <a href="#features" class="cta-button">Explore Features</a>
+        </div>
+
+        <div class="features-section" id="features">
+            <h2>Our Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Farmer Connection</h3>
+                    <p>Direct connection with farmers for better pricing and quality control</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-truck-fast"></i>
+                    <h3>Supply Tracking</h3>
+                    <p>Real-time tracking of agricultural products from farm to market</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Market Analysis</h3>
+                    <p>Advanced analytics and market insights for better decision making</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-warehouse"></i>
+                    <h3>Inventory Management</h3>
+                    <p>Efficient inventory tracking and warehouse management system</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-money-bill-trend-up"></i>
+                    <h3>Price Optimization</h3>
+                    <p>Smart pricing strategies based on market demand and supply</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-screen-button"></i>
+                    <h3>Mobile Access</h3>
+                    <p>Access your supply chain data anytime, anywhere via mobile browser</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="stats-section">
+            <h2>Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <p>Active Farmers</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <p>Delivery Accuracy</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40%</div>
+                    <p>Waste Reduction</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">30M+</div>
+                    <p>Annual Revenue</p>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</body>
+</html>

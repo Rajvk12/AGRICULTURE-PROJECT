@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard - AgriXpress</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .dashboard-container {
+            position: relative;
+            z-index: 1;
+            color: black;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5em;
+            color: black;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-card h2 {
+            color: #75c043;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .product-item {
+            display: grid;
+            grid-template-columns: auto 100px 100px 100px;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .product-item:last-child {
+            border-bottom: none;
+        }
+
+        .add-product-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background: #75c043;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #68ae39;
+            transform: translateY(-2px);
+        }
+
+        .order-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-accept {
+            background: #75c043;
+            color: white;
+        }
+
+        .btn-reject {
+            background: #dc3545;
+            color: white;
+        }
+
+        .prediction-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #75c043;
+        }
+
+        .prediction-value {
+            font-size: 1.8em;
+            color: #75c043;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="image.png" alt="Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Main</a></li>
+                <li><a href="#" class="active">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <img src="agriculture.jpg" alt="Background Image" class="bg-image">
+
+    <div class="dashboard-container">
+        <div class="welcome-section">
+            <h1>Welcome, Farmer!</h1>
+            <p>Manage your products and track your business performance</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- My Products Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-box"></i> My Products</h2>
+                <div class="product-list">
+                    <div class="product-item">
+                        <strong>Product Name</strong>
+                        <strong>Quantity</strong>
+                        <strong>Price</strong>
+                        <strong>Status</strong>
+                    </div>
+                    <div class="product-item">
+                        <span>Organic Rice</span>
+                        <span>500 kg</span>
+                        <span>₹45/kg</span>
+                        <span class="status-badge status-active">Active</span>
+                    </div>
+                    <div class="product-item">
+                        <span>Wheat</span>
+                        <span>300 kg</span>
+                        <span>₹30/kg</span>
+                        <span class="status-badge status-active">Active</span>
+                    </div>
+                    <div class="product-item">
+                        <span>Sugarcane</span>
+                        <span>1000 kg</span>
+                        <span>₹25/kg</span>
+                        <span class="status-badge status-inactive">Inactive</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add New Product Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-plus-circle"></i> Add New Product</h2>
+                <form class="add-product-form">
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" class="form-control" id="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity (kg)</label>
+                        <input type="number" class="form-control" id="quantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price per kg (₹)</label>
+                        <input type="number" class="form-control" id="price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="availability">Availability Date</label>
+                        <input type="date" class="form-control" id="availability" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </form>
+            </div>
+
+            <!-- Incoming Orders Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-shopping-cart"></i> Incoming Orders</h2>
+                <div class="order-list">
+                    <div class="order-item">
+                        <h4>Order #1234</h4>
+                        <p><strong>Product:</strong> Organic Rice</p>
+                        <p><strong>Quantity:</strong> 100 kg</p>
+                        <p><strong>Buyer:</strong> ABC Wholesalers</p>
+                        <p><strong>Total Amount:</strong> ₹4,500</p>
+                        <div class="order-actions">
+                            <button class="btn btn-accept">Accept</button>
+                            <button class="btn btn-reject">Reject</button>
+                        </div>
+                    </div>
+                    <div class="order-item">
+                        <h4>Order #1235</h4>
+                        <p><strong>Product:</strong> Wheat</p>
+                        <p><strong>Quantity:</strong> 150 kg</p>
+                        <p><strong>Buyer:</strong> XYZ Suppliers</p>
+                        <p><strong>Total Amount:</strong> ₹4,500</p>
+                        <div class="order-actions">
+                            <button class="btn btn-accept">Accept</button>
+                            <button class="btn btn-reject">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Predictions Section -->
+            <div class="dashboard-card">
+                <h2><i class="fas fa-chart-line"></i> AI Predictions</h2>
+                <div class="prediction-list">
+                    <div class="prediction-card">
+                        <h4>Demand Forecast - Rice</h4>
+                        <p>Expected demand for next month:</p>
+                        <div class="prediction-value">800-1000 kg</div>
+                        <p>Suggested price range: ₹42-48/kg</p>
+                    </div>
+                    <div class="prediction-card">
+                        <h4>Market Trends</h4>
+                        <div class="chart-container">
+                            <canvas id="demandChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize demand forecast chart
+        const ctx = document.getElementById('demandChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Historical Demand (kg)',
+                    data: [500, 600, 750, 800, 900, 1000],
+                    borderColor: '#75c043',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
